@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const Basictype = new mongoose.Schema({    //basictype is a model
-    name:{},
+    name:{
+    },
     phone:{},
     email:{}, 
     pass:{}
