@@ -1,11 +1,26 @@
 const mongoose = require('mongoose');
 
 const Basictype = new mongoose.Schema({    //basictype is a model
-    name:{
+    fullname:{
+        type:String,
+        require:true,
+        // minLength:[4,"oooo"]
     },
-    phone:{},
-    email:{}, 
-    pass:{}
+    dob:{
+        type:String
+    },
+    email:{
+        type:String
+    }, 
+    pass:{
+        type:String
+    },
+    gender:{
+        type:String
+    },
+    purl:{
+        type:String
+    }
 })
 
 const myschimatype = mongoose.model("basicdata",Basictype);
