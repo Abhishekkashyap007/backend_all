@@ -14,6 +14,6 @@ myapp.use(express.json());
 myapp.use(cors());
 myapp.use(myrout);
 
-myapp.listen(port,()=>{
+myapp.listen(port, () => {
     console.log(`backend is running: ${port}`);
 })
