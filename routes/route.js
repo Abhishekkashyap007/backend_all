@@ -34,7 +34,7 @@ myapp.post("/registor", async (req, res) => {
         fullname, email, pass, dob, purl, gender
     });
     await adduser.save();
-    res.status(200).json(adduser);
+    res.status(200).json({ message: "It is successfully registored", statuscode: 584 });
 });
 
 myapp.delete("/removeuser/:id", async (req, res) => {
@@ -44,8 +44,19 @@ myapp.delete("/removeuser/:id", async (req, res) => {
     const deletedata = await myschimatype.findByIdAndDelete({ _id: id });
     console.log(deletedata);
     res.status(256).json(deletedata);
+});
 
-})
+myapp.patch("/edituser/:id", async (req, res) => {
+    const { id } = req.params;
+    const change = await myschimatype.findByIdAndUpdate({ _id: id }, { new: true })
+    res.status(258).json({ mydata: change, msg: "successfully updated", status: 547 })
+});
+
+myapp.get("/singlereocrd/:id", async (req, res) => {
+    const { id } = req.params;
+    const sinle = await myschimatype.findById({ _id: id });
+    res.send(sinle);
+});
 
 
 module.exports = myapp
