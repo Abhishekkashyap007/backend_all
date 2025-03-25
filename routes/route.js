@@ -58,5 +58,11 @@ myapp.get("/singlereocrd/:id", async (req, res) => {
     res.status(278).json(sinle);
 });
 
+myapp.post("/loginpage", async(req,res)=>{
+    const {email,pass}=req.body;
+    const logindata = await myschimatype.findOne({email:email});
+    console.log(logindata);
+    res.json({ logindata: logindata, msg: "successfully updated", status: 244 });
+})
 
 module.exports = myapp
