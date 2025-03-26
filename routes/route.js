@@ -58,11 +58,43 @@ myapp.get("/singlereocrd/:id", async (req, res) => {
     res.status(278).json(sinle);
 });
 
-myapp.post("/loginpage", async(req,res)=>{
-    const {email,pass}=req.body;
-    const logindata = await myschimatype.findOne({email:email});
-    console.log(logindata);
-    res.json({ logindata: logindata, msg: "successfully updated", status: 244 });
+myapp.post("/loginpage", async (req, res) => {
+    const { email, pass } = req.body;
+    const logindata = await myschimatype.findOne({ email: email });
+
+    if (!logindata) {
+        res.json({ msg: "email not found", status: 460 });
+    }
+    else{
+        if(logindata.email===email && logindata.pass===pass){
+            res.json({msg:"successfully login",status:240});
+        }
+        else{
+            res.json({msg:"email and password not match",status:466});
+        }
+    }
+
+
+    // if(logindata.email==="" || logindata.pass==="")
+    // {
+    //     res.json({logindata:logindata,msg:"email id and password required",status:450});
+    // }
+    // else
+    // {
+    //     if(logindata.email!==email)
+    //     {
+    //         res.json({msg:"email not found",status:460});
+    //     }
+    //     if(logindata.pass!==pass)
+    //     {
+    //         res.json({msg:"incorrect pass",status:461});
+    //     }
+    //     if(logindata.email===email && logindata.pass===pass){
+    //         res.json({msg:"succesfully login",status:240});
+    //     }
+    // }
+    // console.log(logindata);
+    // res.json({ logindata: logindata, msg: "successfully updated", status: 244 });
 })
 
 module.exports = myapp
