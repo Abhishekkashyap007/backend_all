@@ -4,26 +4,25 @@ const myapp = express.Router();
 
 
 
-myapp.get("/", (req, res) => {
-    res.send("<h1>welcome to expressjs</h1>");
-});
+// myapp.get("/", (req, res) => {
+//     res.send("<h1>welcome to expressjs</h1>");
+// });
 
-myapp.get("/about", (req, res) => {
-    res.send("welcome");
-});
+// myapp.get("/about", (req, res) => {
+//     res.send("welcome");
+// });
 
-myapp.get("/contact", (req, res) => {
-    res.send(req.path);
-});
+// myapp.get("/contact", (req, res) => {
+//     res.send(req.path);
+// });
 
-myapp.get(/b/, (req, res) => {
-    // res.send("ddfjsfk");
-    res.json({ name: "abhi", age: "50" })
-});
+// myapp.get(/b/, (req, res) => {
+//     // res.send("ddfjsfk");
+//     res.json({ name: "abhi", age: "50" })
+// });
 
 myapp.get("/alldata", async (req, res) => {
     const alldatalist = await myschimatype.find();
-    // console.log(alldatalist);
     res.send(alldatalist);
 });
 
@@ -38,8 +37,6 @@ myapp.post("/registor", async (req, res) => {
 });
 
 myapp.delete("/removeuser/:id", async (req, res) => {
-    // const {name} = req.body;
-    // const deletedata = await myschimatype.deleteMany({name:name});
     const { id } = req.params;
     const deletedata = await myschimatype.findByIdAndDelete({ _id: id });
     console.log(deletedata);
@@ -65,36 +62,14 @@ myapp.post("/loginpage", async (req, res) => {
     if (!logindata) {
         res.json({ msg: "email not found", status: 460 });
     }
-    else{
-        if(logindata.email===email && logindata.pass===pass){
-            res.json({msg:"successfully login",status:240});
+    else {
+        if (logindata.email === email && logindata.pass === pass) {
+            res.json({ msg: "successfully login", status: 240 });
         }
-        else{
-            res.json({msg:"email and password not match",status:466});
+        else {
+            res.json({ msg: "email and password not match", status: 466 });
         }
     }
-
-
-    // if(logindata.email==="" || logindata.pass==="")
-    // {
-    //     res.json({logindata:logindata,msg:"email id and password required",status:450});
-    // }
-    // else
-    // {
-    //     if(logindata.email!==email)
-    //     {
-    //         res.json({msg:"email not found",status:460});
-    //     }
-    //     if(logindata.pass!==pass)
-    //     {
-    //         res.json({msg:"incorrect pass",status:461});
-    //     }
-    //     if(logindata.email===email && logindata.pass===pass){
-    //         res.json({msg:"succesfully login",status:240});
-    //     }
-    // }
-    // console.log(logindata);
-    // res.json({ logindata: logindata, msg: "successfully updated", status: 244 });
 })
 
 module.exports = myapp
