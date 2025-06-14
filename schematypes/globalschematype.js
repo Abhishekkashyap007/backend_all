@@ -4,7 +4,6 @@ const Basictype = new mongoose.Schema({    //basictype is a model
     fullname: {
         type: String,
         require: true,
-        // minLength:[4,"oooo"]
     },
     dob: {
         type: String
@@ -19,6 +18,9 @@ const Basictype = new mongoose.Schema({    //basictype is a model
         type: String
     },
     purl: {
+        type: String
+    },
+    role: {
         type: String
     }
 })

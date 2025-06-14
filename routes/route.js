@@ -22,10 +22,11 @@ myapp.get("/alldata", async (req, res) => {
 });
 
 myapp.post("/registor", async (req, res) => {
-    const { fullname, email, pass, dob, purl, gender } = req.body;
+    const { fullname, email, pass, dob, purl, gender,role } = req.body;
+    console.log(role);
 
     const adduser = new myschimatype({
-        fullname, email, pass, dob, purl, gender
+        fullname, email, pass, dob, purl, gender,role
     });
     await adduser.save();
     res.status(200).json({ message: "It is successfully registored", statuscode: 584 });
@@ -59,12 +60,36 @@ myapp.post("/loginpage", async (req, res) => {
     }
     else {
         if (logindata.email === email && logindata.pass === pass) {
-            res.json({ msg: "successfully login", status: 240 });
+            res.json({ msg: "successfully login",role: logindata.role, id: logindata.id, status: 240 });
         }
         else {
             res.json({ msg: "email and password not match", status: 466 });
         }
     }
 })
+
+// PUT /updatepassword/:id
+myapp.put('/updatepassword/:id', async (req, res) => {
+    const { id } = req.params;
+    const { pass } = req.body;
+    console.log('Updating password for ID:', id);
+
+    try {
+        const updatedUser = await myschimatype.findByIdAndUpdate(
+            id,
+            { pass },
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ message: 'Password updated successfully', user: updatedUser });
+    } catch (err) {
+        console.error('Error updating password:', err);
+        res.status(500).json({ error: 'Failed to update password' });
+    }
+});
 
 module.exports = myapp
